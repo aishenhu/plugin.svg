@@ -1,3 +1,6 @@
+﻿/**
+ * code from JX
+ */
 var http = function(){
 	// 兼容不同浏览器的 Adapter 适配层
     if(typeof window.XMLHttpRequest === "undefined"){
@@ -104,4 +107,15 @@ var http = function(){
         
         return httpRequest;
     };
+}
+
+Array.prototype.each = function(func){
+    var array = this;
+    for(var i =0; i < array.length; i ++){
+        func(array[i]);
+    }
+}
+
+var foreach = function(obj, func){
+    [].each.call(obj,func);
 }

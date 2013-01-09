@@ -1,13 +1,112 @@
+﻿var __CMD_MAP = {
+	'resize-x': {
+		cursor: 'w-resize',
+		event: 'drag'
+	},'resize-y': {
+		cursor: 's-resize',
+		event: 'drag'
+	},'resize': {
+		cursor: 'default',
+		event: 'drag'
+	},'translate-x': {
+		cursor: 'move',
+		event: 'drag'
+	},'translate-y': {
+		cursor: 'move',
+		event: 'drag'
+	},'translate': {
+		cursor: 'default',
+		event: 'drag'
+	}
+}
+
+/**
+ * 控制点
+ * @param  {[type]} point [description]
+ * @return {[type]}       [description]
+ */
+function cp(point){
+	this.point = point;
+	this.cmd = [];
+	this.init();
+}
+
+cp.prototype.init = function(){
+	var self = this;
+	self.parse();
+	foreach(this.cmd, function(cmd){
+		self.point.style['cursor'] = __CMD_MAP[cmd.name].cursor;
+	});
+	self.bindEvents();
+}
+
+/**
+ * cmd 的格式：
+ * cmdname: target,cmdname2: target
+ * 其中target由cpid指定
+ * @return {[type]} [description]
+ */
+cp.prototype.parse = function(){
+	var cmdText = this.point.getAttribute('cmd'),
+		self = this;
+	if(cmdText){
+		var cList = cmdText.split(',');
+		foreach(cList, function(c){
+			var cmd = c.split(':');
+			if(cmd[1]){
+				var target = document.querySelector('[cpid=' + cmd[1] + ']');
+				self.cmd.push({
+					name: cmd[0],
+					target: target
+				})
+			}
+		});
+	}
+}
+
+/**
+ * 绑定操作事件
+ */
+cp.prototype.bindEvents = function(){
+
+}
+
+/**
+ * 图形控制集合
+ * @param  {[type]} shape [description]
+ * @return {[type]}       [description]
+ */
 function controller(shape){
 	this.shape = shape;
+	this.cpList = [];
 	this.init();
+}
+
+controller.prototype.initControlPoints = function(shape){
+	var self = this;
+	var points = document.querySelectorAll('.control-point', shape);
+	debugger;
+	foreach(points, function(point){
+		self.cpList.push(new cp(point));
+	});
+	console.log(self.cpList);
 }
 
 controller.prototype.init = function(){
 	var shape = this.shape;
+	this.initControlPoints(shape);
 	shape.addEventListener('click', function(){
-		console.log('click');
+		var cps = document.querySelectorAll('.control-panel', shape);
+		foreach(cps, function(cp){
+			cp.style.display = 'block';
+		});
 	});
+	shape.addEventListener('blur', function(){
+		console.log('blur');
+	})
+	shape.addEventListener('focus', function(){
+		console.log('focus');
+	})
 	shape.addEventListener('mouseover', function(){
 		console.log('mouseover');
 	});
@@ -25,18 +124,18 @@ controller.prototype.init = function(){
 		//shape.isMouseDown = false;
 	});
 	shape.addEventListener('mousemove', function(event){
-		if(shape.isMouseDown){
-			var deltaX = event.clientX - shape.lastPosition.x,
-				deltaY = event.clientY - shape.lastPosition.y,
-				top = getComputedStyle(shape).top,
-				left = getComputedStyle(shape).left;
-			console.log(deltaX, deltaY);
-			shape.style.top = parseInt(top) + deltaY;
-			shape.style.left = parseInt(left) + deltaX;
-			shape.lastPosition = {
-				x: event.clientX,
-				y: event.clientY
-			}
-		}
+		// if(shape.isMouseDown){
+		// 	var deltaX = event.clientX - shape.lastPosition.x,
+		// 		deltaY = event.clientY - shape.lastPosition.y,
+		// 		top = getComputedStyle(shape).top,
+		// 		left = getComputedStyle(shape).left;
+		// 	console.log(deltaX, deltaY);
+		// 	shape.style.top = parseInt(top) + deltaY;
+		// 	shape.style.left = parseInt(left) + deltaX;
+		// 	shape.lastPosition = {
+		// 		x: event.clientX,
+		// 		y: event.clientY
+		// 	}
+		// }
 	});
 }

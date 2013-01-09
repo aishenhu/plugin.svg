@@ -2,7 +2,7 @@
 	init : function(){
 		this._shapes = [{
 			title: '箭头',
-			url: 'assets/arrow.svg'
+			url: 'assets/arrow.svg',
 		},{
 			title: '双向箭头',
 			url: 'assets/double-arrow.svg'
