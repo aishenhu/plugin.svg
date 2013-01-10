@@ -8,7 +8,7 @@
 		<line fill="none" stroke="#000000" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="215.979" y1="31.837" x2="189.123" y2="4.728"/>
 		<line fill="none" stroke="#000000" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="215.979" y1="32.46" x2="189.122" y2="59.568"/>
 		<g class="control-panel" style="">
-			<circle class="control-point" cmd="resize-x:arrow-line" cx="220" cy="32" r="6" stroke="black" stroke-width="2" fill="red" style="cursor:default"></circle>
+			<circle class="control-point" cmd="translate-x:cp-resizex,resize-x:arrow-line" cx="220" cy="32" r="6" stroke="black" stroke-width="2" fill="red" style="cursor:default" cpid="cp-resizex"></circle>
 			<circle class="control-point" cx="110" cy="32" r="6" stroke="black" stroke-width="2" fill="red" style=""></circle>
 		</g>
 	</g>

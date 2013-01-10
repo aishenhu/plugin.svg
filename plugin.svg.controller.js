@@ -72,18 +72,53 @@ cp.prototype.parse = function(){
  */
 cp.prototype.bindEvents = function(){
 	var self = this;
+	$namespace('plugin.svg');
 	foreach(self.cmd, function(cmd){
 		var eventType = __CMD_MAP[cmd.name].event;
 		switch(eventType){
 			case 'click':
 				break;
 			case 'drag':
-				bindCustomDragEvent(self.point, function(){
-					console.log(self.point.isMouseDown, 'drag');
-				});
+				addObserver(self, 'drag', self.onDrag);
+				bindCustomDragEvent(self, {});
 				break;
 			default:
 				break;
+		}
+	});
+}
+
+cp.prototype.onDrag = function(param){
+	var self = this,
+		lastEvent = param.lastEvent,
+		event = param.event;
+
+	var deltaX = event.pageX - lastEvent.pageX,
+		deltaY = event.clientY - lastEvent.clientY;
+
+	foreach(self.cmd, function(cmd){
+		var eventType = __CMD_MAP[cmd.name].event;
+		if(eventType == 'drag'){
+			switch(cmd.name){
+				case 'resize-x':
+					var x2 = parseInt(cmd.target.getAttribute('x2'));
+					cmd.target.setAttribute('x2', x2 + deltaX);
+					break;
+				case 'resize-y':
+					break;
+				case 'resize':
+					break;
+				case 'translate-x':
+					var cx = parseInt(cmd.target.getAttribute('cx'));
+					cmd.target.setAttribute('cx', cx + deltaX);
+					break;
+				case 'translate-y':
+					break;
+				case 'translate':
+					break;
+				default:
+					break;
+			}
 		}
 	});
 }
