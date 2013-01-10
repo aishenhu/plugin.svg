@@ -33,10 +33,13 @@ function cp(point){
 
 cp.prototype.init = function(){
 	var self = this;
+	//解析控制点命令
 	self.parse();
+	//设置相应的样式
 	foreach(this.cmd, function(cmd){
 		self.point.style['cursor'] = __CMD_MAP[cmd.name].cursor;
 	});
+	//绑定控制点的操作样式
 	self.bindEvents();
 }
 
@@ -68,7 +71,21 @@ cp.prototype.parse = function(){
  * 绑定操作事件
  */
 cp.prototype.bindEvents = function(){
-
+	var self = this;
+	foreach(self.cmd, function(cmd){
+		var eventType = __CMD_MAP[cmd.name].event;
+		switch(eventType){
+			case 'click':
+				break;
+			case 'drag':
+				bindCustomDragEvent(self.point, function(){
+					console.log(self.point.isMouseDown, 'drag');
+				});
+				break;
+			default:
+				break;
+		}
+	});
 }
 
 /**

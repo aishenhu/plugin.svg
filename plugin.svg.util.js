@@ -119,3 +119,28 @@ Array.prototype.each = function(func){
 var foreach = function(obj, func){
     [].each.call(obj,func);
 }
+
+function $namespace(nsString){
+    var nsArray = nsString.split('.'),
+        ns = window;
+    foreach(nsArray, function(str){
+        ns[str] = ns[str] || {};
+        ns = ns[str];
+    });
+}
+
+function bindCustomDragEvent(target, func){
+    target.addEventListener('mousedown', function(){
+        target.isMouseDown = true;
+    });
+
+    target.addEventListener('mousemove', function(){
+        if(target.isMouseDown){
+            func();
+        }
+    });
+
+    document.body.addEventListener('mouseup', function(){
+        target.isMouseDown = false;
+    })
+}
