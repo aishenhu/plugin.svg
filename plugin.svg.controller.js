@@ -18,7 +18,42 @@
 		cursor: 'default',
 		event: 'drag'
 	}
-}
+};
+
+/**
+ * 创建操作svg元素的工具集
+ */
+(function(){
+	$namespace('plugin.svg.tools');
+	window.$T = plugin.svg.tools;
+
+	/**
+	 * 改变一个svg元素的宽度
+	 * @return
+	 */
+	$T.resizeX = function(svgEl, delta){
+		var type = svgEl.tagName,
+			transformText = svgEl.getAttribute('transform') || '',
+			param = transformText.match(/scale\(([^,]+),([^,]+)\)/);
+		svgEl.setAttribute('transform', 'scale(1.2, 1)');
+		// switch(type){
+		// 	case 'line':
+		// 		var x2 = parseInt(svgEl.getAttribute('x2'));
+		// 		svgEl.setAttribute('x2', x2 + delta);
+		// 		break;
+		// 	default:
+		// 		break;
+		// }
+	}
+
+	/**
+	 * svg元素的translate操作
+	 */
+	$T.translate = function(svgEl, deltaX, deltaY){
+		var type = svgEl.tagName;
+		//svgEl.setAttribute('transform', 'translate('+deltaX+','+deltaY +')');
+	}
+})();
 
 /**
  * 控制点
@@ -73,19 +108,20 @@ cp.prototype.parse = function(){
 cp.prototype.bindEvents = function(){
 	var self = this;
 	$namespace('plugin.svg');
-	foreach(self.cmd, function(cmd){
-		var eventType = __CMD_MAP[cmd.name].event;
-		switch(eventType){
-			case 'click':
-				break;
-			case 'drag':
-				addObserver(self, 'drag', self.onDrag);
-				bindCustomDragEvent(self, {});
-				break;
-			default:
-				break;
-		}
-	});
+	addObserver(self, 'drag', self.onDrag);
+	bindCustomDragEvent(self, {});
+	// foreach(self.cmd, function(cmd){
+	// 	var eventType = __CMD_MAP[cmd.name].event;
+	// 	switch(eventType){
+	// 		case 'click':
+	// 			break;
+	// 		case 'drag':				
+				
+	// 			break;
+	// 		default:
+	// 			break;
+	// 	}
+	// });
 }
 
 cp.prototype.onDrag = function(param){
@@ -101,16 +137,16 @@ cp.prototype.onDrag = function(param){
 		if(eventType == 'drag'){
 			switch(cmd.name){
 				case 'resize-x':
-					var x2 = parseInt(cmd.target.getAttribute('x2'));
-					cmd.target.setAttribute('x2', x2 + deltaX);
+					$T.resizeX(cmd.target, deltaX);
 					break;
 				case 'resize-y':
+					
 					break;
 				case 'resize':
+					
 					break;
 				case 'translate-x':
-					var cx = parseInt(cmd.target.getAttribute('cx'));
-					cmd.target.setAttribute('cx', cx + deltaX);
+					$T.translate(cmd.target, deltaX, 0);
 					break;
 				case 'translate-y':
 					break;
@@ -190,4 +226,42 @@ controller.prototype.init = function(){
 		// 	}
 		// }
 	});
+}
+
+
+/**
+ * 
+ */
+function dispachEvent(){
+
+}
+
+/**
+ * 绑定自定义的拖动事件
+ * @param  {[type]} target [description]
+ * @param  {[type]} func   [description]
+ * @return {[type]}        [description]
+ */
+function bindCustomDragEvent(target, func){
+    var point = target.point;
+    var _lastEvent;   //记录上一次的事件信息
+    point.addEventListener('mousedown', function(event){
+        target.isMouseDown = true;
+        notifyObservers(target, 'mousedown', {lastEvent: _lastEvent, event: event});
+        _lastEvent = event;
+    });
+
+    document.addEventListener('mousemove', function(event){
+        if(target.isMouseDown){
+            notifyObservers(target, 'drag', {lastEvent: _lastEvent, event: event});
+        }
+        _lastEvent = event;
+    });
+
+    document.addEventListener('mouseup', function(event){
+        target.isMouseDown = false;
+        if(target.isMouseDown){
+        	notifyObservers(target, 'mouseup', {lastEvent: _lastEvent, event: event});
+        }
+    });
 }

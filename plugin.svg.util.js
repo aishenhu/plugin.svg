@@ -292,6 +292,11 @@ removeObserver = function(targetModel, eventType, handler){
     return flag;
 };
 
+/**
+ * Array 的each方法扩展
+ * @param  {[type]} func [description]
+ * @return {[type]}      [description]
+ */
 Array.prototype.each = function(func){
     var array = this;
     for(var i =0; i < array.length; i ++){
@@ -310,24 +315,4 @@ function $namespace(nsString){
         ns[str] = ns[str] || {};
         ns = ns[str];
     });
-}
-
-function bindCustomDragEvent(target, func){
-    var point = target.point;
-    var _lastEvent;
-    point.addEventListener('mousedown', function(event){
-        target.isMouseDown = true;
-        _lastEvent = event;
-    });
-
-    point.addEventListener('mousemove', function(event){
-        if(target.isMouseDown){
-            notifyObservers(target, 'drag', {lastEvent: _lastEvent, event: event});
-        }
-        _lastEvent = event;
-    });
-
-    document.body.addEventListener('mouseup', function(){
-        target.isMouseDown = false;
-    })
 }
