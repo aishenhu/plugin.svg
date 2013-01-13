@@ -2,17 +2,17 @@
 <!-- Generator: Adobe Illustrator 15.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="230px" height="65px" viewBox="0 0 230 65" enable-background="new 0 0 230 65" xml:space="preserve">
+	 width="230px" height="65px" viewBox="0 0 230 65" enable-background="new 0 0 230 65" xml:space="preserve" fill="none" stroke="#000000" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10">
 <g>
 	
-		<line fill="none" stroke="#000000" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="8.931" y1="33.32" x2="221.977" y2="33.32"/>
+		<line  x1="8.931" y1="33.32" x2="221.977" y2="33.32"/>
 	
-		<line fill="none" stroke="#000000" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="221.979" y1="32.837" x2="195.123" y2="9.728"/>
+		<line  x1="221.979" y1="32.837" x2="195.123" y2="9.728"/>
 	
-		<line fill="none" stroke="#000000" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="221.979" y1="33.46" x2="195.122" y2="56.568"/>
+		<line  x1="221.979" y1="33.46" x2="195.122" y2="56.568"/>
 	
-		<line fill="none" stroke="#000000" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="8.122" y1="33.461" x2="34.978" y2="56.568"/>
+		<line  x1="8.122" y1="33.461" x2="34.978" y2="56.568"/>
 	
-		<line fill="none" stroke="#000000" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="8.122" y1="32.838" x2="34.979" y2="9.728"/>
+		<line  x1="8.122" y1="32.838" x2="34.979" y2="9.728"/>
 </g>
 </svg>
